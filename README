@@ -1,0 +1,16 @@
+Denoise Handwriting
+
+	Description:
+
+
+	Dependencies:
+
+		- opencv:
+			To download, install brew.
+			> brew update
+			> brew tap homebrew/science
+			> brew install opencv
+			> mkdir -p /Users/erikwaing/Library/Python/2.7/lib/python/site-packages
+			> echo 'import site; site.addsitedir("/usr/local/lib/python2.7/site-packages")' >> /Users/erikwaing/Library/Python/2.7/lib/python/site-packages/homebrew.pth
+
+			Test that it works by opening python and running 'import cv2'

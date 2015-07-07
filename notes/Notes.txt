@@ -1,0 +1,15 @@
+Notes
+
+Sunday - July 5
+
+	- looking through the training set, there seems to be certain kinds of errors:
+		1. "cup stains" - marked by large dark stain where a cup would have been.
+		2. "dark circles" - small dark circles like coffee drops
+		3. "crease" - creases
+		4. "shadows" - caused where close to creases, shadows form.
+		5. "darkness" - some random darkness
+		6. "crumble" - heavy creasing and shadowing
+
+	- On the training set:
+		- different fonts, but all same lighting (filters and thresholds might work?)
+		- finally, we want black and white image. Black for letters and white background.
