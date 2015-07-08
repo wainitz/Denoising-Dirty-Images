@@ -3,6 +3,11 @@ import glob
 import numpy as np
 import matplotlib.pyplot as plt
 
+from copy import copy,deepcopy
+
+WHITE = 255
+BLACK = 0
+
 def load_images(directory):
 	filenames = glob.glob(directory + "*.png")
 	images = { file_id(filename, directory) : cv2.imread(filename, cv2.IMREAD_GRAYSCALE) for filename in filenames}
@@ -11,14 +16,24 @@ def load_images(directory):
 def apply_transformation(image):
 	return third_pass_filter(image)
 
+def last_filter(img):
+	x_index,y_index = img.shape
+	for x in range(x_index):
+		for y in range(y_index):
+			if img[x,y]>60:
+				img[x,y] = WHITE
+			else:
+				img[x,y] = BLACK
+
 def third_pass_filter(image):
-	img = second_pass_filter(image)
-	x_len, y_len = img.shape
-	for x in range(x_len):
-		for y in range(y_len):
-			if img[x,y] < 30:
-				img[x,y] = 0
-	return img
+	clean = first_pass_mean_filter(image, num_stds=0.5)
+	# now I need to remove coffee stains.
+	removed_stains = sliding_window_stains(clean, 3, 30)
+	img = filter_by_pixels(clean, removed_stains)
+	img2 = cv2.erode(img,kernel=None)
+	cv2.imshow('erode',img2)
+	last_filter(img2)
+	return filter_by_pixels(img, img2)
 
 def second_pass_filter(image):
 	'''
